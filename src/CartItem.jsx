@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
@@ -9,28 +9,62 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = () => {
- 
-  };
+    let total =0;
+    cart.forEach(element => {
+        total += parseFloat(element.cost.substring(1)) * element.quantity;
+        
+    });
+    return total;
+  }
 
   const handleContinueShopping = (e) => {
+    e.preventDefault();
+    onContinueShopping();
    
   };
+
+    const handleCheckout = (e) => {
+        e.preventDefault(); // Prevent default button behavior
+        alert("Coming Soon");
+
+    };
+
 
 
 
   const handleIncrement = (item) => {
+    dispatch(updateQuantity({name: item.name, quantity: item.quantity+1}));
   };
 
   const handleDecrement = (item) => {
+    if(item.quantity>0){
+        dispatch(updateQuantity({name: item.name, quantity: item.quantity-1}));
+    }
    
   };
 
   const handleRemove = (item) => {
+    dispatch(removeItem(item));
   };
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
+    let cost = parseFloat(item.cost.substring(1)) * item.quantity;
+    return cost;
+
   };
+
+    const calculateTotalQuantity = () => {
+        return cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
+    };
+
+      // Render an empty cart message if the cart is empty
+    if (!cart.length) {
+        return <h2 className="cart-empty">Your cart is empty. Add some products!</h2>;
+    }
+
+
+
 
   return (
     <div className="cart-container">
@@ -57,7 +91,7 @@ const CartItem = ({ onContinueShopping }) => {
       <div className="continue_shopping_btn">
         <button className="get-started-button" onClick={(e) => handleContinueShopping(e)}>Continue Shopping</button>
         <br />
-        <button className="get-started-button1">Checkout</button>
+        <button className="get-started-button1" onClick={(e) => handleCheckout(e)}>Checkout</button>
       </div>
     </div>
   );
