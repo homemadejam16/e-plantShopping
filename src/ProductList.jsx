@@ -58,8 +58,8 @@ function ProductList() {
 
 
     const handleHomeClick = (e) => {
-        setShowCart(false);
-        setShowPlants(false);
+        window.location.href = "/";
+
     };
 
     const handleCartClick = (e) => {
