@@ -57,7 +57,7 @@ function ProductList() {
 
     const handleHomeClick = (e) => {
         e.preventDefault();
-        window.location.href = "/";
+        window.location.href = "/e-plantShopping/";
     };
 
     const handleCartClick = (e) => {
