@@ -55,11 +55,9 @@ function ProductList() {
         boxShadow: "0px 2px 5px rgba(0,0,0,0.2)",
     };
 
-
-
     const handleHomeClick = (e) => {
+        e.preventDefault();
         window.location.href = "/";
-
     };
 
     const handleCartClick = (e) => {
